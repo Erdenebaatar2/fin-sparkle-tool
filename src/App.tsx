@@ -13,7 +13,7 @@ import EditTransaction from "./pages/EditTransaction";
 import Transactions from "./pages/Transactions";
 import Reports from "./pages/Reports";
 import NotFound from "./pages/NotFound";
-
+import "./i18n";
 const queryClient = new QueryClient();
 
 const App = () => (

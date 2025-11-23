@@ -1,0 +1,94 @@
+{
+  "auth": {
+    "login": "Login",
+    "signup": "Sign Up",
+    "title": "Manage your finances with ease.",
+    "fullName": "Full Name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "overview": "Overview of your financial performance",
+    "totalIncome": "Total Income",
+    "totalExpenses": "Total Expenses",
+    "netBalance": "Net Balance",
+    "incomeVsExpenses": "Income vs Expenses (Last 7 Days)",
+    "trendAnalysis": "Trend Analysis",
+    "recentTransactions": "Recent Transactions",
+    "noTransactions": "No transactions yet",
+    "addFirstTransaction": "Add your first transaction",
+    "income": "Income",
+    "expense": "Expense"
+  },
+  "transaction": {
+    "addTransaction": "Add Transaction",
+    "viewAndManage": "View and manage all your transactions",
+    "recordTransaction": "Record a new income or expense",
+    "transactionDetails": "Transaction Details",
+    "enterDetails": "Enter the details of your transaction",
+    "type": "Type *",
+    "income": "Income",
+    "expense": "Expense",
+    "amount": "Amount *",
+    "date": "Date *",
+    "category": "Category *",
+    "selectCategory": "Select category",
+    "account": "Account",
+    "documentNo": "Document No.",
+    "description": "Description",
+    "addNotes": "Add any notes or details...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "success": "Transaction added successfully!",
+    "deleteSuccess": "Transaction deleted successfully",
+    "validationError": "Validation Error",
+    "error": "Failed to add transaction. Please try again.",
+    "deleteConfirmTitle": "Are you sure?",
+    "deleteConfirmDescription": "This action cannot be undone. This will permanently delete the transaction.",
+    "delete": "Delete",
+    "allTransactions": "All Transactions",
+    "filters": "Filters",
+    "searchPlaceholder": "Search transactions...",
+    "allTypes": "All Types",
+    "noTransactions": "No transactions found."
+  }, 
+  
+  "reports": {
+    "title": "Reports",
+    "description": "Financial analytics and insights",
+    "filters": "Report Configuration",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "reportType": "Report Type",
+    "monthlyTrend": "Monthly Trend",
+    "categoryBreakdown": "Category Breakdown",
+    "exportCSV": "Export CSV",
+    "summary": {
+      "totalIncome": "Total Income",
+      "totalExpenses": "Total Expenses",
+      "netProfitLoss": "Net Profit/Loss"
+    },
+    "charts": {
+      "monthlyTrend": "Monthly Trend",
+      "incomeByCategory": "Income by Category",
+      "expensesByCategory": "Expenses by Category"
+    },
+    "labels": {
+      "income": "Income",
+      "expenses": "Expenses"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "search": "Search...",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "success": "Success",
+    "error": "Error"
+  }
+}
+
+

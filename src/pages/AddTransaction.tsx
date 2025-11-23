@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
 import { Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const transactionSchema = z.object({
   type: z.enum(['income', 'expense'], { required_error: "Please select a transaction type" }),
@@ -31,6 +32,7 @@ interface Category {
 }
 
 const AddTransaction = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -132,20 +134,20 @@ const AddTransaction = () => {
     <DashboardLayout>
       <div className="max-w-2xl mx-auto space-y-6">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Add Transaction</h2>
-          <p className="text-muted-foreground">Record a new income or expense</p>
+          <h2 className="text-3xl font-bold tracking-tight">{t('transaction.addTransaction')}</h2>
+          <p className="text-muted-foreground">{t('transaction.recordTransaction')}</p>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Transaction Details</CardTitle>
-            <CardDescription>Enter the details of your transaction</CardDescription>
+            <CardTitle>{t('transaction.transactionDetails')}</CardTitle>
+            <CardDescription>{t('transaction.enterDetails')}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid gap-6 md:grid-cols-2">
                 <div className="space-y-2">
-                  <Label htmlFor="type">Type *</Label>
+                  <Label htmlFor="type">{t('transaction.type')}</Label>
                   <Select
                     value={formData.type}
                     onValueChange={(value: 'income' | 'expense') => 
@@ -156,14 +158,14 @@ const AddTransaction = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="income">Income</SelectItem>
-                      <SelectItem value="expense">Expense</SelectItem>
+                      <SelectItem value="income">{t('transaction.income')}</SelectItem>
+                      <SelectItem value="expense">{t('transaction.expense')}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="amount">Amount *</Label>
+                  <Label htmlFor="amount">{t('transaction.amount')}</Label>
                   <Input
                     id="amount"
                     type="number"
@@ -176,7 +178,7 @@ const AddTransaction = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="date">Date *</Label>
+                  <Label htmlFor="date">{t('transaction.date')}</Label>
                   <Input
                     id="date"
                     type="date"
@@ -187,7 +189,7 @@ const AddTransaction = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="category">Category *</Label>
+                  <Label htmlFor="category">{t('transaction.category')}</Label>
                   <Select
                     value={formData.category_id}
                     onValueChange={(value) => setFormData({ ...formData, category_id: value })}
@@ -206,7 +208,7 @@ const AddTransaction = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="account">Account</Label>
+                  <Label htmlFor="account">{t('transaction.account')}</Label>
                   <Input
                     id="account"
                     type="text"
@@ -217,7 +219,7 @@ const AddTransaction = () => {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="document_no">Document No.</Label>
+                  <Label htmlFor="document_no">{t('transaction.documentNo')}</Label>
                   <Input
                     id="document_no"
                     type="text"
@@ -229,10 +231,10 @@ const AddTransaction = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
+                <Label htmlFor="description">{t('transaction.description')}</Label>
                 <Textarea
                   id="description"
-                  placeholder="Add any notes or details..."
+                  placeholder={t('transaction.addNotes')}
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                   rows={4}
@@ -247,7 +249,7 @@ const AddTransaction = () => {
                       Saving...
                     </>
                   ) : (
-                    'Add Transaction'
+                    t('transaction.addTransaction')
                   )}
                 </Button>
                 <Button 
@@ -256,7 +258,7 @@ const AddTransaction = () => {
                   onClick={() => navigate('/transactions')}
                   disabled={loading}
                 >
-                  Cancel
+                  {t('transaction.cancel')}
                 </Button>
               </div>
             </form>

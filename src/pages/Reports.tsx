@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
+import { useTranslation } from 'react-i18next';
 import {
   Select,
   SelectContent,
@@ -35,6 +36,7 @@ interface CategoryData {
 }
 
 const Reports = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [startDate, setStartDate] = useState(() => {
@@ -176,19 +178,19 @@ const Reports = () => {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Reports</h2>
-          <p className="text-muted-foreground">Financial analytics and insights</p>
+          <h2 className="text-3xl font-bold tracking-tight">{t('reports.title')}</h2>
+          <p className="text-muted-foreground">{t('reports.description')}</p>
         </div>
 
         {/* Filters */}
         <Card>
           <CardHeader>
-            <CardTitle>Report Configuration</CardTitle>
+            <CardTitle>{t('reports.filters')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="grid gap-4 md:grid-cols-4">
               <div className="space-y-2">
-                <Label htmlFor="start-date">Start Date</Label>
+                <Label htmlFor="start-date">{t('reports.startDate')}</Label>
                 <Input
                   id="start-date"
                   type="date"
@@ -197,7 +199,7 @@ const Reports = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="end-date">End Date</Label>
+                <Label htmlFor="end-date">{t('reports.endDate')}</Label>
                 <Input
                   id="end-date"
                   type="date"
@@ -206,21 +208,21 @@ const Reports = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="report-type">Report Type</Label>
+                <Label htmlFor="report-type">{t('reports.reportType')}</Label>
                 <Select value={reportType} onValueChange={(value: any) => setReportType(value)}>
                   <SelectTrigger id="report-type">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="monthly">Monthly Trend</SelectItem>
-                    <SelectItem value="category">Category Breakdown</SelectItem>
+                    <SelectItem value="monthly">{t('reports.charts.monthlyTrend')}</SelectItem>
+                    <SelectItem value="category">{t('reports.categoryBreakdown')}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="flex items-end">
                 <Button onClick={handleExport} className="w-full">
                   <Download className="h-4 w-4 mr-2" />
-                  Export CSV
+                  {t('reports.exportCSV')}
                 </Button>
               </div>
             </div>
@@ -231,7 +233,7 @@ const Reports = () => {
         <div className="grid gap-4 md:grid-cols-3">
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Total Income</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('reports.summary.totalIncome')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-success">
@@ -241,7 +243,7 @@ const Reports = () => {
           </Card>
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Total Expenses</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('reports.summary.totalExpenses')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-destructive">
@@ -251,7 +253,7 @@ const Reports = () => {
           </Card>
           <Card>
             <CardHeader className="pb-3">
-              <CardTitle className="text-sm font-medium">Net Profit/Loss</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('reports.summary.netProfitLoss')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className={`text-2xl font-bold ${
@@ -267,7 +269,7 @@ const Reports = () => {
         {reportType === 'monthly' ? (
           <Card>
             <CardHeader>
-              <CardTitle>Monthly Trend</CardTitle>
+              <CardTitle>{t('reports.charts.monthlyTrend')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={400}>
@@ -277,8 +279,8 @@ const Reports = () => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="income" fill="hsl(var(--success))" name="Income" />
-                  <Bar dataKey="expenses" fill="hsl(var(--destructive))" name="Expenses" />
+                  <Bar dataKey="income" fill="hsl(var(--success))" name={t('reports.labels.income')} />
+                  <Bar dataKey="expenses" fill="hsl(var(--destructive))" name={t('reports.labels.expenses')} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -287,7 +289,7 @@ const Reports = () => {
           <div className="grid gap-4 md:grid-cols-2">
             <Card>
               <CardHeader>
-                <CardTitle>Income by Category</CardTitle>
+                <CardTitle>{t('reports.charts.incomeByCategory')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
@@ -314,7 +316,7 @@ const Reports = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>Expenses by Category</CardTitle>
+                <CardTitle>{t('reports.charts.expensesByCategory')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>

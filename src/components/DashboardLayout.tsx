@@ -13,7 +13,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useState } from 'react';
-
+import { LangSwitch } from '@/components/ui/langSwitch';
 interface DashboardLayoutProps {
   children: ReactNode;
 }
@@ -36,6 +36,7 @@ const DashboardLayout = ({ children }: DashboardLayoutProps) => {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/60">
         <div className="container flex h-16 items-center justify-between px-4">
+          <LangSwitch />
           <div className="flex items-center gap-4">
             <Button
               variant="ghost"

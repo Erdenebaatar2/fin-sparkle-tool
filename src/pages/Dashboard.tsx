@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useTranslation } from 'react-i18next';
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -37,6 +38,7 @@ interface DashboardStats {
 }
 
 const Dashboard = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [stats, setStats] = useState<DashboardStats>({
     totalIncome: 0,
@@ -123,15 +125,15 @@ const Dashboard = () => {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Dashboard</h2>
-          <p className="text-muted-foreground">Overview of your financial performance</p>
+          <h2 className="text-3xl font-bold tracking-tight">{t('dashboard.title')}</h2>
+          <p className="text-muted-foreground">{t('dashboard.overview')}</p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Income</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('dashboard.totalIncome')}</CardTitle>
               <TrendingUp className="h-4 w-4 text-success" />
             </CardHeader>
             <CardContent>
@@ -143,7 +145,7 @@ const Dashboard = () => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Expenses</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('dashboard.totalExpenses')}</CardTitle>
               <TrendingDown className="h-4 w-4 text-destructive" />
             </CardHeader>
             <CardContent>
@@ -155,7 +157,7 @@ const Dashboard = () => {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Net Balance</CardTitle>
+              <CardTitle className="text-sm font-medium">{t('dashboard.netBalance')}</CardTitle>
               <DollarSign className="h-4 w-4 text-primary" />
             </CardHeader>
             <CardContent>
@@ -170,7 +172,7 @@ const Dashboard = () => {
         <div className="grid gap-4 md:grid-cols-2">
           <Card>
             <CardHeader>
-              <CardTitle>Income vs Expenses (Last 7 Days)</CardTitle>
+              <CardTitle>{t('dashboard.incomeVsExpenses')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -180,8 +182,8 @@ const Dashboard = () => {
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  <Bar dataKey="income" fill="hsl(var(--success))" name="Income" />
-                  <Bar dataKey="expenses" fill="hsl(var(--destructive))" name="Expenses" />
+                  <Bar dataKey="income" fill="hsl(var(--success))" name={t('dashboard.income')} />
+                  <Bar dataKey="expenses" fill="hsl(var(--destructive))" name={t('dashboard.expense')} />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
@@ -189,7 +191,7 @@ const Dashboard = () => {
 
           <Card>
             <CardHeader>
-              <CardTitle>Trend Analysis</CardTitle>
+              <CardTitle>{t('dashboard.trendAnalysis')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -204,14 +206,14 @@ const Dashboard = () => {
                     dataKey="income" 
                     stroke="hsl(var(--success))" 
                     strokeWidth={2}
-                    name="Income"
+                    name={t('dashboard.income')}
                   />
                   <Line 
                     type="monotone" 
                     dataKey="expenses" 
                     stroke="hsl(var(--destructive))" 
                     strokeWidth={2}
-                    name="Expenses"
+                    name={t('dashboard.expense')}
                   />
                 </LineChart>
               </ResponsiveContainer>
@@ -222,14 +224,14 @@ const Dashboard = () => {
         {/* Recent Transactions */}
         <Card>
           <CardHeader>
-            <CardTitle>Recent Transactions</CardTitle>
+            <CardTitle>{t('dashboard.recentTransactions')}</CardTitle>
           </CardHeader>
           <CardContent>
             {stats.recentTransactions.length === 0 ? (
               <div className="flex flex-col items-center justify-center py-8 text-center">
                 <AlertCircle className="h-12 w-12 text-muted-foreground mb-4" />
-                <p className="text-muted-foreground">No transactions yet</p>
-                <p className="text-sm text-muted-foreground">Add your first transaction to get started</p>
+                <p className="text-muted-foreground">{t('dashboard.noTransactions')}</p>
+                <p className="text-sm text-muted-foreground">{t('dashboard.addFirstTransaction')}</p>
               </div>
             ) : (
               <div className="space-y-4">

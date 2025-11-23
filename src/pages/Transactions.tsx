@@ -5,6 +5,7 @@ import DashboardLayout from '@/components/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useTranslation } from 'react-i18next';
 import { 
   Table, 
   TableBody, 
@@ -50,6 +51,7 @@ interface Transaction {
 }
 
 const Transactions = () => {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -167,13 +169,13 @@ const Transactions = () => {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h2 className="text-3xl font-bold tracking-tight">Transactions</h2>
-          <p className="text-muted-foreground">View and manage all your transactions</p>
+          <h2 className="text-3xl font-bold tracking-tight">{t('transaction.allTransactions')}</h2>
+          <p className="text-muted-foreground">{t('transaction.viewAndManage')}</p>
         </div>
 
         <Card>
           <CardHeader>
-            <CardTitle>Filters</CardTitle>
+            <CardTitle>{t('transaction.filters')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col sm:flex-row gap-4">
@@ -191,9 +193,9 @@ const Transactions = () => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="all">All Types</SelectItem>
-                  <SelectItem value="income">Income</SelectItem>
-                  <SelectItem value="expense">Expense</SelectItem>
+                  <SelectItem value="all">{t('transaction.allTypes')}</SelectItem>
+                  <SelectItem value="income">{t('transaction.income')}</SelectItem>
+                  <SelectItem value="expense">{t('transaction.expense')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -202,27 +204,27 @@ const Transactions = () => {
 
         <Card>
           <CardHeader>
-            <CardTitle>All Transactions ({filteredTransactions.length})</CardTitle>
+            <CardTitle>{t('transaction.allTransactions')} ({filteredTransactions.length})</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="rounded-md border">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Date</TableHead>
-                    <TableHead>Type</TableHead>
-                    <TableHead>Category</TableHead>
-                    <TableHead>Account</TableHead>
-                    <TableHead>Description</TableHead>
-                    <TableHead className="text-right">Amount</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
+                    <TableHead>{t('transaction.date')}</TableHead>
+                    <TableHead>{t('transaction.type')}</TableHead>
+                    <TableHead>{t('transaction.category')}</TableHead>
+                    <TableHead>{t('transaction.account')}</TableHead>
+                    <TableHead>{t('transaction.description')}</TableHead>
+                    <TableHead className="text-right">{t('transaction.amount')}</TableHead>
+                    <TableHead className="text-right">{t('transaction.actions')}</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {filteredTransactions.length === 0 ? (
                     <TableRow>
                       <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
-                        No transactions found
+                        {t('transaction.noTransactions')}
                       </TableCell>
                     </TableRow>
                   ) : (
@@ -297,15 +299,15 @@ const Transactions = () => {
       <AlertDialog open={deleteDialogOpen} onOpenChange={setDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogTitle>{t('transaction.deleteConfirmTitle')}</AlertDialogTitle>
             <AlertDialogDescription>
-              This action cannot be undone. This will permanently delete the transaction.
+              {t('transaction.deleteConfirmDescription')}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>{t('transaction.cancel')}</AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
-              Delete
+              {t('transaction.delete')}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

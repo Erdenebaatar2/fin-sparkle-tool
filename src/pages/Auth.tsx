@@ -9,6 +9,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
 import { Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
+import { LangSwitch } from '@/components/ui/langSwitch';
 
 const loginSchema = z.object({
   email: z.string().trim().email({ message: "Invalid email address" }),
@@ -24,6 +26,7 @@ const signupSchema = loginSchema.extend({
 });
 
 const Auth = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { signIn, signUp, user } = useAuth();
   const { toast } = useToast();
@@ -128,23 +131,25 @@ const Auth = () => {
   };
 
   return (
+    <div  >
+      <LangSwitch />
     <div className="min-h-screen flex items-center justify-center bg-background p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold">Accounting System</CardTitle>
-          <CardDescription>Manage your finances with ease</CardDescription>
+          <CardDescription>{t('auth.title')}</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs defaultValue="login" className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              <TabsTrigger value="login">{t('auth.login')}</TabsTrigger>
+              <TabsTrigger value="signup">{t('auth.signup')}</TabsTrigger>
             </TabsList>
 
             <TabsContent value="login">
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="login-email">Email</Label>
+                  <Label htmlFor="login-email">{t('auth.email')}</Label>
                   <Input
                     id="login-email"
                     type="email"
@@ -155,7 +160,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="login-password">Password</Label>
+                  <Label htmlFor="login-password">{t('auth.password')}</Label>
                   <Input
                     id="login-password"
                     type="password"
@@ -171,7 +176,7 @@ const Auth = () => {
                       Logging in...
                     </>
                   ) : (
-                    'Login'
+                    t('auth.login')
                   )}
                 </Button>
               </form>
@@ -180,7 +185,7 @@ const Auth = () => {
             <TabsContent value="signup">
               <form onSubmit={handleSignup} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-name">Full Name</Label>
+                  <Label htmlFor="signup-name">{t('auth.fullName')}</Label>
                   <Input
                     id="signup-name"
                     type="text"
@@ -191,7 +196,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-email">{t('auth.email')}</Label>
                   <Input
                     id="signup-email"
                     type="email"
@@ -202,7 +207,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
+                  <Label htmlFor="signup-password">{t('auth.password')}</Label>
                   <Input
                     id="signup-password"
                     type="password"
@@ -212,7 +217,7 @@ const Auth = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-confirm">Confirm Password</Label>
+                  <Label htmlFor="signup-confirm">{t('auth.confirmPassword')}</Label>
                   <Input
                     id="signup-confirm"
                     type="password"
@@ -228,7 +233,7 @@ const Auth = () => {
                       Creating account...
                     </>
                   ) : (
-                    'Sign Up'
+                    t('auth.signup')
                   )}
                 </Button>
               </form>
@@ -236,6 +241,7 @@ const Auth = () => {
           </Tabs>
         </CardContent>
       </Card>
+    </div>
     </div>
   );
 };

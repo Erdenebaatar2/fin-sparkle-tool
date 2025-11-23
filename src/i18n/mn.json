@@ -1,0 +1,91 @@
+{
+  "auth": {
+    "login": "Нэвтрэх",
+    "signup": "Бүртгүүлэх",
+    "title": "Санхүүгээ амархан удирдаарай.",
+    "fullName": "Бүтэн нэр",
+    "email": "Имэйл",
+    "password": "Нууц үг",
+    "confirmPassword": "Нууц үгээ баталгаажуулах"
+  },
+  "dashboard": {
+    "title": "Миний санхүү",
+    "overview": "Санхүүгийн гүйцэтгэлийн тойм",
+    "totalIncome": "Нийт орлого",
+    "totalExpenses": "Нийт зарлага",
+    "netBalance": "Цэвэр үлдэгдэл",
+    "incomeVsExpenses": "Орлого ба зарлага (Сүүлийн 7 хоног)",
+    "trendAnalysis": "Трендийн шинжилгээ",
+    "recentTransactions": "Сүүлийн гүйлгээ",
+    "noTransactions": "Гүйлгээ алга байна",
+    "addFirstTransaction": "Эхний гүйлгээгээ нэмээрэй",
+    "income": "Орлого",
+    "expense": "Зарлага"
+  },
+  "transaction": {
+    "addTransaction": "Гүйлгээ нэмэх",
+    "viewAndManage": "Бүх гүйлгээг харах ба удирдах",
+    "recordTransaction": "Шинэ орлого эсвэл зарлагыг бүртгэх",
+    "transactionDetails": "Гүйлгээний дэлгэрэнгүй",
+    "enterDetails": "Гүйлгээний дэлгэрэнгүүдийг оруулна уу",
+    "type": "Төрөл *",
+    "income": "Орлого",
+    "expense": "Зарлага",
+    "amount": "Дүн *",
+    "date": "Огноо *",
+    "category": "Ангилал *",
+    "selectCategory": "Ангилалыг сонгоно уу",
+    "account": "Данс",
+    "documentNo": "Баримтын дугаар",
+    "description": "Тайлбар",
+    "addNotes": "Тэмдэглэл эсвэл дэлгэрэнгүй мэдээлэл оруулах...",
+    "save": "Хадгалах",
+    "cancel": "Цуцлах",
+    "success": "Гүйлгээ амжилттай нэмэгдлээ!",
+    "deleteSuccess": "Гүйлгээ амжилттай устгагдлаа",
+    "validationError": "Шалгалтын алдаа",
+    "error": "Гүйлгээ нэмэх боломжгүй. Дахин оролдоно уу.",
+    "deleteConfirmTitle": "Та итгэлтэй байна уу?",
+    "deleteConfirmDescription": "Энэ үйлдэл арилшгүй. Гүйлгээг бүрмөсөн устгана.",
+    "delete": "Устгах",
+    "allTransactions": "Бүх гүйлгээ",
+    "filters": "Шүүлтүүр",
+    "searchPlaceholder": "Гүйлгээг хайх...",
+    "allTypes": "Бүх төрөл",
+    "noTransactions": "Гүйлгээ олдсонгүй."
+  }, 
+    "reports": {
+    "title": "Тайлан",
+    "description": "Санхүүгийн аналитик болон үзүүлэлтүүд",
+    "filters": "Тайлангийн тохиргоо",
+    "startDate": "Эхлэх огноо",
+    "endDate": "Дуусах огноо",
+    "reportType": "Тайлангийн төрөл",
+    "monthlyTrend": "Сарын тренд",
+    "categoryBreakdown": "Ангиллаар задлах",
+    "exportCSV": "CSV экспорт",
+    "summary": {
+      "totalIncome": "Нийт орлого",
+      "totalExpenses": "Нийт зарлага",
+      "netProfitLoss": "Цэвэр ашиг/алдагдал"
+    },
+    "charts": {
+      "monthlyTrend": "Сарын тренд",
+      "incomeByCategory": "Ангиллаар орлого",
+      "expensesByCategory": "Ангиллаар зарлага"
+    },
+    "labels": {
+      "income": "Орлого",
+      "expenses": "Зарлага"
+    }
+  },
+  "common": {
+    "loading": "Уншиж байна...",
+    "search": "Хайх...",
+    "cancel": "Цуцлах",
+    "save": "Хадгалах",
+    "delete": "Устгах",
+    "success": "Амжилттай",
+    "error": "Алдаа гарлаа"
+  }
+}
