@@ -131,9 +131,13 @@ const Auth = () => {
   };
 
   return (
-    <div  >
-      <LangSwitch />
-    <div className="min-h-screen flex items-center justify-center bg-background p-4">
+ <div className="min-h-screen flex flex-col justify-center bg-background">
+  
+  <div className="flex justify-center mb-4">
+    <LangSwitch />
+  </div>
+    <div className="flex items-center justify-center bg-background p-4">
+   
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold">Accounting System</CardTitle>
@@ -243,6 +247,7 @@ const Auth = () => {
       </Card>
     </div>
     </div>
+  
   );
 };
 
