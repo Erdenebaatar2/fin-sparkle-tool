@@ -13,6 +13,7 @@ import EditTransaction from "./pages/EditTransaction";
 import Transactions from "./pages/Transactions";
 import Reports from "./pages/Reports";
 import Settings from "./pages/Settings";
+import Salary from "./pages/Salary";
 import NotFound from "./pages/NotFound";
 import "./i18n";
 const queryClient = new QueryClient();
@@ -54,6 +55,11 @@ const App = () => (
             <Route path="/settings" element={
               <ProtectedRoute>
                 <Settings />
+              </ProtectedRoute>
+            } />
+            <Route path="/salary" element={
+              <ProtectedRoute>
+                <Salary />
               </ProtectedRoute>
             } />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
