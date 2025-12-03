@@ -1,1 +1,22 @@
 project_id = "dmfzlxdzbbjirmudeujp"
+
+[functions.calculate-tax]
+verify_jwt = true
+
+[functions.calculate-salary]
+verify_jwt = true
+
+[functions.generate-report]
+verify_jwt = true
+
+[functions.send-ebarimt]
+verify_jwt = true
+
+[functions.generate-vat-report]
+verify_jwt = true
+
+[functions.generate-income-tax-report]
+verify_jwt = true
+
+[functions.approve-expense]
+verify_jwt = true
