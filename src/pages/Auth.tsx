@@ -11,6 +11,7 @@ import { z } from 'zod';
 import { Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { LangSwitch } from '@/components/ui/langSwitch';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 
 const loginSchema = z.object({
   email: z.string().trim().email({ message: "Invalid email address" }),
@@ -35,9 +36,12 @@ const Auth = () => {
   const [loginData, setLoginData] = useState({ email: '', password: '' });
   const [signupData, setSignupData] = useState({ 
     email: '', 
+    organization_name: '',
+    usertype: 'individual' as 'individual' | 'organization',
+    organization_id: '',
     password: '', 
     confirmPassword: '',
-    fullName: '' 
+    name: '' 
   });
 
   useEffect(() => {
@@ -46,77 +50,73 @@ const Auth = () => {
     }
   }, [user, navigate]);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
 
-    try {
-      const validatedData = loginSchema.parse(loginData);
-      const { error } = await signIn(validatedData.email, validatedData.password);
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(loginData),
+    });
 
-      if (error) {
-        if (error.message.includes('Invalid login credentials')) {
-          toast({
-            title: "Login Failed",
-            description: "Invalid email or password. Please try again.",
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: "Error",
-            description: error.message,
-            variant: "destructive",
-          });
-        }
-      } else {
-        toast({
-          title: "Success",
-          description: "Logged in successfully!",
-        });
-        navigate('/');
-      }
-    } catch (error) {
-      if (error instanceof z.ZodError) {
-        toast({
-          title: "Validation Error",
-          description: error.errors[0].message,
-          variant: "destructive",
-        });
-      }
-    } finally {
-      setLoading(false);
+    const data = await res.json();
+    console.log("LOGIN JSON:", data);
+    console.log("LOGIN RESPONSE:", loginData);
+
+    if (!res.ok) {
+      throw new Error(data.error || "Invalid login credentials");
     }
-  };
+
+    // LOGIN SUCCESS
+    toast({
+      title: "Success",
+      description: "Logged in successfully!",
+    });
+
+    // USER STATE-д хадгалах (AuthContext дахь setUser() байх ёстой)
+    // setUser(data.user);
+
+    navigate("/");
+  } catch (err: any) {
+    toast({
+      title: "Login Failed",
+      description: err.message,
+      variant: "destructive",
+    });
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   const handleSignup = async (e: React.FormEvent) => {
+
     e.preventDefault();
     setLoading(true);
 
     try {
-      const validatedData = signupSchema.parse(signupData);
-      const { error } = await signUp(validatedData.email, validatedData.password, validatedData.fullName);
-
-      if (error) {
-        if (error.message.includes('User already registered')) {
-          toast({
-            title: "Signup Failed",
-            description: "An account with this email already exists. Please log in instead.",
-            variant: "destructive",
-          });
-        } else {
-          toast({
-            title: "Error",
-            description: error.message,
-            variant: "destructive",
-          });
-        }
-      } else {
-        toast({
-          title: "Success",
-          description: "Account created successfully! You can now log in.",
-        });
-        navigate('/');
+      const res = await fetch('/api/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...signupData,
+          user_type: signupData.usertype,
+        }),
+      });
+      const data = await res.json();
+      console.log("Signup JSON:", signupData);
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to sign up. Please try again.');  
       }
+      toast({
+        title: "Success",
+        description: "Account created successfully! Please log in.",
+      });
+      navigate('/');
     } catch (error) {
       if (error instanceof z.ZodError) {
         toast({
@@ -124,7 +124,13 @@ const Auth = () => {
           description: error.errors[0].message,
           variant: "destructive",
         });
-      }
+      } else if (error instanceof Error) {
+        toast({
+          title: "Error",
+          description: error.message,
+          variant: "destructive",
+        });
+      } 
     } finally {
       setLoading(false);
     }
@@ -188,17 +194,51 @@ const Auth = () => {
 
             <TabsContent value="signup">
               <form onSubmit={handleSignup} className="space-y-4">
+               <div className="space-y-2">
+                <label htmlFor="signup-organization">{t('auth.organization')}</label>
+                <Select
+                  value={signupData.usertype}
+                  onValueChange={(value: 'individual' | 'organization') =>
+                    setSignupData({ ...signupData, usertype: value })
+                  }
+                >
+                  <SelectTrigger id="signup-organization" className="w-full">
+                    <SelectValue placeholder={t('auth.selectOrganization')} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="individual">аж ахуй</SelectItem>
+                    <SelectItem value="organization">байгууллага</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-name">{t('auth.fullName')}</Label>
+                  <Label htmlFor="signup-name">{signupData.usertype === 'individual' ? t('auth.fullName') : t('auth.organizationName')}</Label>
                   <Input
                     id="signup-name"
                     type="text"
                     placeholder="John Doe"
-                    value={signupData.fullName}
-                    onChange={(e) => setSignupData({ ...signupData, fullName: e.target.value })}
-                    required
+                    value={signupData.name}
+                 onChange={(e) =>
+                      signupData.usertype === 'individual'
+                        ? setSignupData({ ...signupData, name: e.target.value })
+                        : setSignupData({ ...signupData, organization_name: e.target.value })
+                    }
                   />
                 </div>
+                {signupData.usertype === 'organization' && (
+                  <div className="space-y-2">
+                    <Label htmlFor="signup-organization-id">{t('auth.organizationId')}</Label>
+                    <Input
+                      id="signup-organization-id"
+                      type="text"
+                      placeholder="Company id"
+                      value={signupData.organization_id}
+                      onChange={(e) => setSignupData({ ...signupData, organization_id: e.target.value })}
+                      required
+                    />
+                  </div>
+                )}
+                
                 <div className="space-y-2">
                   <Label htmlFor="signup-email">{t('auth.email')}</Label>
                   <Input
